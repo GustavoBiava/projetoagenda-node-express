@@ -10,7 +10,8 @@ exports.CSRFMiddleware = (req, res, next) => {
 };
 
 exports.checkCSRFError = (error, req, res, next) => {
-    if (error && error.code === 'EBADCSRFTOKEN') {
-        return res.render('error');
+    if (error) {
+        return res.render('404');
     }
+    next();
 };
