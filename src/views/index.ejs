@@ -1,33 +1,47 @@
 <%- include('./includes/head') %>
+<%- include('./includes/nav') %>
 
-    <section class="container">
-        <h1>
-            <%if (typeof title !== 'undefined') { %> 
-                <%= title %>
-            <% } else {%>
-                O título não foi enviado =(
-            <% } %>
-        </h1>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-2"></div>    
 
-        <p>
-            <% numbers.forEach((num) => { %>
-                <%= num %> <br>
-            <% }); %>
-        </p>
+        <div class="col-lg-8 my-3">
+            <h1 class="text-center">Agenda</h1>
+            <p class="text-center lead">Seus contatos estão abaixo</p>
 
-        <p>
-            <%= estouEmTodasAsRotas %>
-        </p>
+            <div class="row">
+                <div class="col my-3">
+                    <div class="alert alert-danger">Um erro qualquer</div>
+                </div>
+            </div>
 
-        <form action="/" method="POST">
+            <div class="responsive-table">
+                <table class="table my-3">
+                    <tr>
+                        <td>Cristiano</td>
+                        <td>Ronaldo</td>
+                        <td>48 998980909</td>
+                        <td>cristiano.ronaldo@email.com</td>
+                    </tr>
+                    <tr>
+                        <td>Cristiano</td>
+                        <td>Ronaldo</td>
+                        <td>48 998980909</td>
+                        <td>cristiano.ronaldo@email.com</td>
+                    </tr>
+                    <tr>
+                        <td>Cristiano</td>
+                        <td>Ronaldo</td>
+                        <td>48 998980909</td>
+                        <td>cristiano.ronaldo@email.com</td>
+                    </tr>
+                </table>
+            </div>
 
-            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        </div>    
 
-            <label for="client">Cliente:</label>
-            <input type="text" name="client">
-            <button>Enviar</button>
-        </form>
-
-    </section>
+        <div class="col-lg-2"></div>    
+    </div>
+</div>
 
 <%- include('./includes/footer') %>
