@@ -1,6 +1,6 @@
 exports.mainMiddleware = (req, res, next) => {
-    res.locals.estouEmTodasAsRotas = 'Estou em todas as rotas =)';
-    console.log('Passei pelo middleware global');
+    res.locals.errors = req.flash('errors');
+    res.locals.success = req.flash('success');
     next();
 };
 
