@@ -54,13 +54,10 @@ class Login {
             this.user = null;
             return;
         }
-
-        
-
     }
 
     async userExists() {
-        user = await LoginModel.findOne({ email: this.body.email });
+        const user = await LoginModel.findOne({ email: this.body.email });
         if (user) this.errors.push('Usuário já existente!');
     }
 

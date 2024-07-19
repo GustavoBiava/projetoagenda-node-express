@@ -54,6 +54,7 @@ exports.login = async (req, res) => {
     req.session.save(() => {
         return res.redirect('/login/index');
     });
+    return;
 };
 
 exports.logout = (req, res) => {
