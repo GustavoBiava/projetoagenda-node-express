@@ -68,13 +68,12 @@ Contact.findAll = async function() {
 
 Contact.delete = async function(id) {
     if (typeof id !== 'string') return;
-    const contact = await ContactModel.findOneAndDelete(id);
+    const contact = await ContactModel.findOneAndDelete({_id: id});
     return contact;
 };
 
 Contact.prototype.hasError = function() {
     return this.errors.length > 0;
 }
-
 
 module.exports = Contact;
