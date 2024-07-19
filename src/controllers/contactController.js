@@ -17,7 +17,7 @@ exports.register = async (req, res) => {
     if (contact.hasError()) {
         req.flash('errors', contact.errors);
         req.session.save(() => {
-            return res.redirect('/contact/index');            
+            return res.redirect('/contact/index');
         });
         return;
     }
@@ -27,13 +27,38 @@ exports.register = async (req, res) => {
         return res.redirect(`/contact/index/${contact.contact._id}`);
     });
     return;
-
 };
 
-exports.editIndex = async function(req, res) {
+exports.editIndex = async function (req, res) {
     if (!req.params.contactId) return res.render('404');
     const contact = await Contact.findById(req.params.contactId);
     if (!contact) return res.render('404');
 
     res.render('contact', { contact });
+};
+
+exports.edit = async function (req, res) {
+    try {
+        if (!req.params.contactId) return res.render('404');
+        const contact = new Contact(req.body);
+        await contact.edit(req.params.contactId);
+        
+        if (contact.hasError()) {
+            req.flash('errors', contact.errors);
+            req.session.save(() => {
+                return res.redirect(`/contact/index/${req.params.contactId}`);
+            });
+            return;
+        }
+
+        req.flash('success', 'Contato editado com sucesso!');
+        req.session.save(() => {
+            return res.redirect(`/contact/index/${contact.contact._id}`);
+        });
+        return;
+    }
+    catch (error) {
+        console.error(error);
+        return res.render('404');
+    }
 };

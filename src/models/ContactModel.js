@@ -25,7 +25,7 @@ Contact.prototype.register = async function() {
 
 Contact.prototype.validate = function() {
     this.cleanUp();
-    if (this.body.email && !(validator.isEmail(this.body.email))) this.errors.push('E-mail inválido');
+    if (!this.body.email || !(validator.isEmail(this.body.email))) this.errors.push('E-mail inválido');
     if (!this.body.name) this.errors.push('Nome é um campo o obrigatório');
     if (!this.body.email && !this.body.phoneNumber) {
         this.errors.push('Contato deve conter pelo menos um email ou um telefone');
@@ -47,6 +47,13 @@ Contact.prototype.cleanUp = function() {
     };
 }
 
+Contact.prototype.edit = async function(id) {
+    if (typeof id !== 'string') return;
+    this.validate();
+    if (this.hasError()) return;
+    this.contact = await ContactModel.findByIdAndUpdate(id, this.body, { new: true });
+};
+
 Contact.findById = async function(id) {
     if (typeof id !== 'string') return;
     const contact = ContactModel.findById(id);
@@ -56,5 +63,6 @@ Contact.findById = async function(id) {
 Contact.prototype.hasError = function() {
     return this.errors.length > 0;
 }
+
 
 module.exports = Contact;
