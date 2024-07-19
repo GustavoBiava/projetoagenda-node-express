@@ -62,3 +62,15 @@ exports.edit = async function (req, res) {
         return res.render('404');
     }
 };
+
+exports.delete = async (req, res) => {
+    if (!req.params.contactId) return res.render('404');
+    const contact = await Contact.delete(req.params.contactId);
+    if (!contact) return res.render('404');
+
+    req.flash('success', 'Contato excluído com sucesso!');
+    req.session.save(() => {
+        return res.redirect(`/`);
+    });
+    return;
+};

@@ -60,6 +60,18 @@ Contact.findById = async function(id) {
     return contact;
 };
 
+Contact.findAll = async function() {
+    const contacts = await ContactModel.find()
+        .sort({ created: -1});
+    return contacts;
+};
+
+Contact.delete = async function(id) {
+    if (typeof id !== 'string') return;
+    const contact = await ContactModel.findOneAndDelete(id);
+    return contact;
+};
+
 Contact.prototype.hasError = function() {
     return this.errors.length > 0;
 }
