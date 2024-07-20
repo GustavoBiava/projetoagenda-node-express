@@ -12,7 +12,7 @@ const LoginModel = mongoose.model('Login', LoginSchema);
 class Login {
 
     constructor(body) {
-        this.body = body;    
+        this.body = body;
         this.errors = [];
         this.user = null;
     }
@@ -44,6 +44,7 @@ class Login {
         if (this.hasError()) return;
 
         this.user = await LoginModel.findOne({ email: this.body.email });
+        
         if (!this.user) {
             this.errors.push('Usuário não existe!');
             return;
